@@ -3,6 +3,8 @@ import { MockBackend, MockConnection } from '@angular/http/testing';
 
 import { TESTUSERS } from '../_config/test-users';
 import { TASKS } from '../_config/test-tasks';
+localStorage.removeItem('users');
+localStorage.removeItem('tasks');
 localStorage.setItem('users', JSON.stringify(TESTUSERS));
 localStorage.setItem('tasks', JSON.stringify(TASKS));
 
@@ -49,7 +51,6 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
 
             // get tasks
             if (connection.request.url.endsWith('/api/tasks') && connection.request.method === RequestMethod.Get) {
-                // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
                     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
                     let matchedTasks = tasks.filter(task => { return task.userid === currentUser.id });
 
@@ -60,7 +61,6 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
 
             // get task by id
             if (connection.request.url.match(/\/api\/task\/\d+$/) && connection.request.method === RequestMethod.Get) {
-                // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
                     // find task by id in tasks array
                     let urlParts = connection.request.url.split('/');
                     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -74,7 +74,6 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
 
             // get task by id
             if (connection.request.url.match(/\/api\/task\/\d+$/) && connection.request.method === RequestMethod.Put) {
-                // check for fake auth token in header and return user if valid, this security is implemented server side in a real application
                 // find task by id in tasks array
                 let urlParts = connection.request.url.split('/');
                 let currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -109,11 +108,11 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
     });
 
     return new Http(backend, options);
-};
+}
 
 export let fakeBackendProvider = {
     // use fake backend in place of Http service for backend-less development
     provide: Http,
     useFactory: fakeBackendFactory,
     deps: [MockBackend, BaseRequestOptions, XHRBackend]
-};
+}

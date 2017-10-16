@@ -48,5 +48,4 @@ export class TasksComponent implements OnInit {
     reloadTasks(params) {
        this.tasksResource.query(params).then(tasks => this.tasks = tasks);
     }
-
 }

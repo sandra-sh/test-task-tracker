@@ -5,5 +5,3 @@ export const TESTUSERS: User[] = [
     { id: 2, username: 'test2', password: 'test2', firstname: 'Test 2'},
     { id: 3, username: 'test3', password: 'test3', firstname: 'Test 3'}
 ];
-
-localStorage.setItem('users', JSON.stringify(TESTUSERS));

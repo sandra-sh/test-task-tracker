@@ -17,5 +17,4 @@ export class TaskService {
     updateTask(task: Task) {
         return this.http.put('/api/task/' + task.id, task).map((response: Response) => response.json());
     }
-
 }

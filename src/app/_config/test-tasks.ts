@@ -9,4 +9,3 @@ export const TASKS: Task[] = [
     { id: 6, userid: 3, title: 'task6', date: '2017, 10, 12', status: 90}
 ];
 
-localStorage.setItem('tasks', JSON.stringify(TASKS));

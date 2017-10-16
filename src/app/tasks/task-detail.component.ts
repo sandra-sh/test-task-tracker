@@ -45,8 +45,5 @@ export class TaskDetailComponent implements OnInit {
             error => {
               this.alertService.error(error);
             });
-
-
   }
-
 }
