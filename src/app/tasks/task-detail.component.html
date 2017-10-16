@@ -1,0 +1,23 @@
+<div *ngIf="task">
+  <h2>{{task.title}}</h2>
+
+  <form name="form" (ngSubmit)="updateTask()" #f="ngForm" novalidate>
+  <div class="form-group">
+    <label for="title">Title: </label>
+    <input name="title" [(ngModel)]="task.title" #title="ngModel" class="form-control"/>
+  </div>
+  <div class="form-group">
+    <label>Date: </label>
+    {{ task.date | date:'mediumDate' }}
+  </div>
+  <div class="form-group">
+    <label for="status">Status(%): </label>
+    <input name="status" [(ngModel)]="task.status" #status="ngModel" class="form-control"/>
+  </div>
+
+  <button type="submit" class="btn btn-success">Submit</button>
+  <a class="btn btn-link" (click)="goBack()">Return to tasks list</a>
+
+  </form>
+
+</div>

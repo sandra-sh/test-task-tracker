@@ -1,0 +1,48 @@
+<div class="logout-block">
+  You're logged in as {{currentUser.username}}
+  <p><a class="btn btn-link" routerLink="/login">Logout</a></p>
+</div>
+
+<h2>Tasks</h2>
+
+<label>Filter by Status(%)</label>
+<div class="filter-block form-group row">
+  <div class="col-xs-6 col-sm-3">
+    <label for="pMin">Min</label>
+    <input id="pMin" type="number" min="0" max="100" [(ngModel)]="percentMin" class="form-control">
+  </div>
+  <div class="col-xs-6 col-sm-3">
+    <label for="pMax">Max</label>
+    <input id="pMax" type="number" min="0" max="100" [(ngModel)]="percentMax" class="form-control">
+  </div>
+</div>
+
+<data-table
+        [items]="tasks | filter : [percentMin,percentMax]"
+        [itemCount]="taskCount"
+        (reload)="reloadTasks($event)"
+        [pagination]="false"
+        [indexColumn]="true"
+>
+  <data-table-column
+          property="title"
+          header="Title"
+          sortable="true">
+    <ng-template #dataTableCell let-item="item">
+      <span class="task-title" [class.selected]="item === selectedTask" (click)="gotoDetail(item)">{{ item.title }}</span>
+    </ng-template>
+  </data-table-column>
+  <data-table-column
+          property="date"
+          header="Date"
+          sortable="true">
+    <ng-template #dataTableCell let-item="item">
+      {{ item.date | date:'mediumDate' }}
+    </ng-template>
+  </data-table-column>
+  <data-table-column
+          property="status"
+          header="Status(%)"
+          sortable="true">
+  </data-table-column>
+</data-table>
